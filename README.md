@@ -34,3 +34,14 @@ provider "aws" {
     region="us-east-1"
 }
 ```
+
+### Mostra os resultados dos terraforms aplicados
+```
+terraform show
+```
+
+### Destroe tudo que foi criado
+
+```
+terraform destroy
+```
