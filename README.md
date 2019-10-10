@@ -45,3 +45,55 @@ terraform show
 ```
 terraform destroy
 ```
+
+### Força destruição e criação de recurso
+```
+terraform taint [nome do recurso]
+```
+
+### Remove o taint do recurso
+```
+terraform untaint [nome do recurso]
+```
+
+### Terraform Console para manipular variáveis de recursos
+
+```
+terraform console
+// [recurso.nome.variable]
+```
+
+### Variáveis que não apresentam Default serão solicitadas no apply do terraform
+
+```HCL
+variable "instance_type" {
+  
+}
+
+variable "ami"{
+    default="ami-0b69ea66ff7391e80"
+}
+
+```
+
+### Passar valor da variável por linha de comando
+```
+terraform plan -var 'instace_type=t2.micro'
+```
+
+### Arquivo de variáveis arquivo.tfvars
+```
+terraform plan -var-file="dev.tfvars"
+```
+
+### Name de uma instancia EC2. Tag Name será o nome mostrado no portal da aws
+```
+variable "tags" {
+    type="map"
+    default={
+        "Name"="NodeJs"
+        "Env"="Dev"
+    }
+  
+}
+```
