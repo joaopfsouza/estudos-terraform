@@ -97,3 +97,27 @@ variable "tags" {
   
 }
 ```
+
+### Comando para formatar arquivos terraform
+
+```
+terraform fmt
+```
+
+### Terraform get baixa modules
+
+```
+terraform get
+```
+
+### Terraform import state
+
+```
+terrafomr import [resource]  [resource_name]
+```
+
+### terraform graph -  salvar em arquivo .dot
+
+```
+terraform graph > base.dot
+```
