@@ -64,7 +64,6 @@ terraform console
 ```
 
 ### Variáveis que não apresentam Default serão solicitadas no apply do terraform
-
 ```HCL
 variable "instance_type" {
   
@@ -120,4 +119,20 @@ terrafomr import [resource]  [resource_name]
 
 ```
 terraform graph > base.dot
+```
+
+### Backend Terraform para guardar o terraform state
+```
+terraform{
+  backend "s3"{
+    bucket="${var.bucket_name}"
+    key="ec2/ec2.tfstate"
+    region="${var.region}"
+  }
+}
+```
+
+### Para passar parametros no terraform init para backend
+```
+terraform init -backend=true -backend-config="bucket_name=jax-remote-state-dev" -backend-config="region=us-east-1 -backend-config="profile=terraform"
 ```

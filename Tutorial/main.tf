@@ -1,6 +1,6 @@
 provider "aws" {
     #shared_credentials_file="~/.aws/credentials"
-    profile="terraform-script"
+    profile="terraform"
     region="us-east-1"
 }
 
