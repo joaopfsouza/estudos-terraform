@@ -136,3 +136,69 @@ terraform{
 ```
 terraform init -backend=true -backend-config="bucket_name=jax-remote-state-dev" -backend-config="region=us-east-1 -backend-config="profile=terraform"
 ```
+
+### Data source permite que dados sejam buscados  e computados de algum lugar para ser usado pelo terraform
+
+```
+
+data "aws_ami" "ubuntu" {
+  owners      = ["amazon"]
+  most_recent = true
+  name_regex = "ubuntu"
+}
+
+resource "aws_instance" "web" {
+  ami           = "${data.aws_ami.ubuntu.id}"
+  instance_type = "${var.instance_type}"
+
+}
+```
+
+### Terraform Init commando com parametros
+
+```
+terraform init -backend=true \
+> -backend-config="region=us-east-1" \
+> -backend-config="bucket=jax-remote-state-dev" \
+> -backend-config="key=ec2/wc2.tfstate" \
+> -backend-config="profile=terraform"
+```
+
+### Executar comandos terraform com debug
+```
+TF_LOG=debug terraform [command]
+```
+
+### Forçar o output por comando
+
+```
+terraform output ami
+
+``` 
+
+### É possivel criar variáveis locais
+
+```
+locals {
+  instan_id = "${data.terraform_remote_state.web.id}" 
+  ami = "${data.terraform_remote_state.web.ami}" 
+  arn = "${data.terraform_remote_state.web.arn}"
+}
+
+Chamando 
+
+module "bucket"{
+    source="../../04-Modules/S3"
+    name="${var.bucket_name}-${var.env}"
+    versioning=true
+
+    tag ={
+        "Env"="${var.env}"
+        "Name" = "Terraform Remote State"
+    }
+    object_key="instances/instances-${local.ami}.txt"
+    object_source="output.txt"
+}
+
+
+```

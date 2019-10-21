@@ -4,11 +4,11 @@ variable "region"{
 }
 
 variable "access_key" {
-  default="AKIAYVPRGRMEAXLPMTMV"
+  default=""
 }
 
 variable "secret_key" {
-  default="AEYyVwpe+0FU7+JxJ4Aoz8rIFhE+LeLwIaqyjr/l"
+  default=""
 }
 
 variable "instance_type" {
